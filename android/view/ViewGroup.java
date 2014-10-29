@@ -829,10 +829,12 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
         final int action = ev.getAction();
         final float xf = ev.getX();
         final float yf = ev.getY();
+        //加上scroll的距离，转化为内部坐标
         final float scrolledXFloat = xf + mScrollX;
         final float scrolledYFloat = yf + mScrollY;
         final Rect frame = mTempRect;
-
+        // requestDisallowInterceptTouchEvent 
+        
         boolean disallowIntercept = (mGroupFlags & FLAG_DISALLOW_INTERCEPT) != 0;
 
         if (action == MotionEvent.ACTION_DOWN) {
@@ -854,18 +856,22 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
                 final int scrolledYInt = (int) scrolledYFloat;
                 final View[] children = mChildren;
                 final int count = mChildrenCount;
-
+               // 遍历ViewGroup 的child数组，找到相应的目标view
                 for (int i = count - 1; i >= 0; i--) {
                     final View child = children[i];
+                    // 如果view可见，或者设置有动画时表示该view可接受touch事件
                     if ((child.mViewFlags & VISIBILITY_MASK) == VISIBLE
                             || child.getAnimation() != null) {
                         child.getHitRect(frame);
+                    // touch坐标在该view的坐标内
                         if (frame.contains(scrolledXInt, scrolledYInt)) {
                             // offset the event to the view's coordinate system
                             final float xc = scrolledXFloat - child.mLeft;
                             final float yc = scrolledYFloat - child.mTop;
-                            ev.setLocation(xc, yc);
+                            ev.setLocation(xc, yc);// 坐标变换
                             child.mPrivateFlags &= ~CANCEL_NEXT_UP_EVENT;
+                            // 调用 dispatchTouchEvent，如果返回true，就是打到
+                            // 目标view,并设置相应 mMotionTarget变量值,并返回ture,
                             if (child.dispatchTouchEvent(ev))  {
                                 // Event handled, we have a target now.
                                 mMotionTarget = child;
@@ -900,6 +906,8 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
                 ev.setAction(MotionEvent.ACTION_CANCEL);
                 mPrivateFlags &= ~CANCEL_NEXT_UP_EVENT;
             }
+            // 没有子view或者子view中没有找到target view,将调用parent(view).dispatchTouchEvent,即该view
+            //的ontouch函数处理
             return super.dispatchTouchEvent(ev);
         }
 
@@ -911,6 +919,8 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
             mPrivateFlags &= ~CANCEL_NEXT_UP_EVENT;
             ev.setAction(MotionEvent.ACTION_CANCEL);
             ev.setLocation(xc, yc);
+            //如果该viewGroup拦截touch事件（非 down事件),该ViewGroup的ontouch函数将会收到touch事件，
+            //target将会收到cancel事件
             if (!target.dispatchTouchEvent(ev)) {
                 // target didn't handle ACTION_CANCEL. not much we can do
                 // but they should have.
@@ -938,7 +948,8 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
             target.mPrivateFlags &= ~CANCEL_NEXT_UP_EVENT;
             mMotionTarget = null;
         }
-
+      // 对于找到target,对于后续的 move ,up事件，如果this viewgroup的onInterceptTouchEvent
+        //没有拦截,刚直接传递给target处理
         return target.dispatchTouchEvent(ev);
     }
 
