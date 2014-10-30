@@ -107,6 +107,7 @@ public class Handler {
      * If there isn't one, this handler won't be able to receive messages.
      */
     public Handler() {
+        // 调用信息
         if (FIND_POTENTIAL_LEAKS) {
             final Class<? extends Handler> klass = getClass();
             if ((klass.isAnonymousClass() || klass.isMemberClass() || klass.isLocalClass()) &&

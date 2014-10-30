@@ -106,6 +106,7 @@ public class Looper {
     public static final void loop() {
         Looper me = myLooper();
         MessageQueue queue = me.mQueue;
+        // 循环 取出消息从队列中
         while (true) {
             Message msg = queue.next(); // might block
             //if (!me.mRun) {

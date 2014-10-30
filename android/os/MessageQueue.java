@@ -94,11 +94,11 @@ public class MessageQueue {
             mIdleHandlers.remove(handler);
         }
     }
-    
+    //构造函数
     MessageQueue() {
         nativeInit();
     }
-    
+  /*  GC时回收一些资源*/
     @Override
     protected void finalize() throws Throwable {
         try {
@@ -107,7 +107,7 @@ public class MessageQueue {
             super.finalize();
         }
     }
-
+   /* ????????????why   ??????????*/
     final Message next() {
         int pendingIdleHandlerCount = -1; // -1 only during first iteration
         int nextPollTimeoutMillis = 0;
@@ -182,6 +182,7 @@ public class MessageQueue {
         }
     }
 
+/*以时间time有优化级的队列,时间短的前*/
     final boolean enqueueMessage(Message msg, long when) {
         if (msg.when != 0) {
             throw new AndroidRuntimeException(msg
