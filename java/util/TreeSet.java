@@ -34,7 +34,7 @@ public class TreeSet<E> extends AbstractSet<E> implements NavigableSet<E>,
         Cloneable, Serializable {
 
     private static final long serialVersionUID = -2479143000061671589L;
-
+   /* TreeSet底层实现是通过SortMap实现的*/
     /** Keys are this set's elements. Values are always Boolean.TRUE */
     private transient NavigableMap<E, Object> backingMap;
 

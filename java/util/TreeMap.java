@@ -76,6 +76,7 @@ public class TreeMap<K, V> extends AbstractMap<K, V>
     Comparator<? super K> comparator;
     Node<K, V> root;
     int size = 0;
+    // 修改次数
     int modCount = 0;
 
     /**
@@ -729,7 +730,7 @@ public class TreeMap<K, V> extends AbstractMap<K, V>
     public NavigableSet<K> descendingKeySet() {
         return new BoundedMap(false, null, NO_BOUND, null, NO_BOUND).navigableKeySet();
     }
-
+ /*   TreeMap的数据结构*/
     static class Node<K, V> implements Map.Entry<K, V> {
         Node<K, V> parent;
         Node<K, V> left;

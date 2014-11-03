@@ -30,7 +30,7 @@ public class HashSet<E> extends AbstractSet<E> implements Set<E>, Cloneable,
         Serializable {
 
     private static final long serialVersionUID = -5024744406713321676L;
-
+  /*  HashSet内部实现是通过HashMap实现的依赖关系,Set中的对向作为hashMap的key,value为HashSet本身*/
     transient HashMap<E, HashSet<E>> backingMap;
 
     /**
@@ -110,14 +110,15 @@ public class HashSet<E> extends AbstractSet<E> implements Set<E>, Cloneable,
      * Returns a new {@code HashSet} with the same elements and size as this
      * {@code HashSet}.
      *
-     * @return a shallow copy of this {@code HashSet}.
+     * @return a shallow copy of this {@code HashSet}.// clone引用 
      * @see java.lang.Cloneable
      */
     @Override
     @SuppressWarnings("unchecked")
     public Object clone() {
         try {
-            HashSet<E> clone = (HashSet<E>) super.clone();
+            // Object 的native返回clone
+            HashSet<E> clone = (HashSet<E>) super.clone(); 
             clone.backingMap = (HashMap<E, HashSet<E>>) backingMap.clone();
             return clone;
         } catch (CloneNotSupportedException e) {

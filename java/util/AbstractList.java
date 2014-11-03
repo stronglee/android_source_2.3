@@ -32,6 +32,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements
 
     /**
      * A counter for changes to the list.
+     * 不需要序列化的属性前添加关键字transient
      */
     protected transient int modCount;
 

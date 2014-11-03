@@ -285,7 +285,7 @@ public class LinkedHashMap<K, V> extends HashMap<K, V> {
             makeTail((LinkedEntry<K, V>) e);
         }
     }
-
+  /* 处理double-linked 删除操作*/
     @Override void postRemove(HashMapEntry<K, V> e) {
         LinkedEntry<K, V> le = (LinkedEntry<K, V>) e;
         le.prv.nxt = le.nxt;

@@ -22,6 +22,7 @@ package android.os;
  * processes, by creating a Messenger pointing to a Handler in one process,
  * and handing that Messenger to another process.
  */
+/*基于IPC的一种进程间通信方式*/
 public final class Messenger implements Parcelable {
     private final IMessenger mTarget;
 

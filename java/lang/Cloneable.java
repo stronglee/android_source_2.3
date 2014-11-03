@@ -23,10 +23,11 @@ package java.lang;
  * support cloning. The implementation of {@code clone()} in {@code Object}
  * checks if the object being cloned implements this interface and throws
  * {@code CloneNotSupportedException} if it does not.
- *
+ * 实现 Cloneable接口，需要实现Object对象的clone函数
  * @see Object#clone
  * @see CloneNotSupportedException
  */
+
 public interface Cloneable {
     // Marker interface
 }

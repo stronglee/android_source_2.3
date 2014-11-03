@@ -32,6 +32,11 @@ import java.io.Serializable;
  * A PriorityQueue is not synchronized. If multiple threads will have to access
  * it concurrently, use the {@link java.util.concurrent.PriorityBlockingQueue}.
  */
+/**
+ * 优先级队列 二叉堆的实现,数组实现
+ * 1. 结构性质： 堆是一个被完全填满的二叉树，满二树
+ * 2. 堆序性： 对于每一个节点X,X的父结点的关键字小于或等于x中的关键字（与二叉查找树的区别）
+**/
 public class PriorityQueue<E> extends AbstractQueue<E> implements Serializable {
 
     private static final long serialVersionUID = -7720805057305804111L;
@@ -352,7 +357,9 @@ public class PriorityQueue<E> extends AbstractQueue<E> implements Serializable {
         }
         return ((Comparable<? super E>) o1).compareTo(o2);
     }
-
+/**
+* 在数据的尾部添加数据，通过上滤操作保持堆序性
+**/
     private void siftUp(int childIndex) {
         E target = elements[childIndex];
         int parentIndex;
@@ -367,11 +374,14 @@ public class PriorityQueue<E> extends AbstractQueue<E> implements Serializable {
         }
         elements[childIndex] = target;
     }
-
+/**
+**
+**/
     private void siftDown(int rootIndex) {
         E target = elements[rootIndex];
         int childIndex;
         while ((childIndex = rootIndex * 2 + 1) < size) {
+            // 如果有两个儿子，找出最小的儿子的位置
             if (childIndex + 1 < size
                     && compare(elements[childIndex + 1], elements[childIndex]) < 0) {
                 childIndex++;

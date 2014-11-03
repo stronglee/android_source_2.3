@@ -154,7 +154,7 @@ public class Object {
         if (!(this instanceof Cloneable)) {
             throw new CloneNotSupportedException("Class doesn't implement Cloneable");
         }
-
+        // native调用 
         return internalClone((Cloneable) this);
     }
 

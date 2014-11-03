@@ -103,7 +103,7 @@ public interface NavigableSet<E> extends SortedSet<E> {
 
     /**
      * Returns a descending iterator of this set.
-     *
+     * 降序的 Iterator
      * @return the descending iterator
      */
     Iterator<E> descendingIterator();
