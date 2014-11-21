@@ -300,6 +300,7 @@ public final class Class<T> implements Serializable, AnnotatedElement, GenericDe
      *
      * @return a copy of the array containing this class' annotations.
      * @see #getDeclaredAnnotations()
+     * annotations 获取注信息
      */
     public Annotation[] getAnnotations() {
         /*
