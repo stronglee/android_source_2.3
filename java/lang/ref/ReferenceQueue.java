@@ -128,6 +128,7 @@ public class ReferenceQueue<T> {
      */
     synchronized void enqueue(Reference<? extends T> reference) {
         if (head == null) {
+            // 队列为空时，
             reference.queueNext = reference;
         } else {
             reference.queueNext = head;

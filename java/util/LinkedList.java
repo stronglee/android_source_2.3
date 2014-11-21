@@ -42,7 +42,7 @@ public class LinkedList<E> extends AbstractSequentialList<E> implements
     private static final long serialVersionUID = 876323262645176354L;
 
     transient int size = 0;
-
+  /*  双向链表的头引用*/
     transient Link<E> voidLink;
 
     private static final class Link<ET> {

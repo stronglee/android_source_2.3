@@ -118,6 +118,7 @@ public class LinkedHashMap<K, V> extends HashMap<K, V> {
      * @throws IllegalArgumentException
      *             when the capacity is less than zero or the load factor is
      *             less or equal to zero.
+    * accessOrder 为ture时，headPre为刚使用过的,head->next为很久未被使用的
      */
     public LinkedHashMap(
             int initialCapacity, float loadFactor, boolean accessOrder) {
@@ -285,7 +286,7 @@ public class LinkedHashMap<K, V> extends HashMap<K, V> {
             makeTail((LinkedEntry<K, V>) e);
         }
     }
-  /* 处理double-linked 删除操作*/
+   处理double-linked 删除
     @Override void postRemove(HashMapEntry<K, V> e) {
         LinkedEntry<K, V> le = (LinkedEntry<K, V>) e;
         le.prv.nxt = le.nxt;

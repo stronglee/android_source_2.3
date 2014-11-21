@@ -456,9 +456,13 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Cloneable, Seria
 
         int hash = secondaryHash(key.hashCode());
         HashMapEntry<K, V>[] tab = table;
+        // 再hash后的值与数组大小位与运算，获取在数组中的位置 
         int index = hash & (tab.length - 1);
+        // 使用分离链接法hash表
         HashMapEntry<K, V> first = tab[index];
+        // 在链表中查找
         for (HashMapEntry<K, V> e = first; e != null; e = e.next) {
+            // 该Key已经存在,更新数据 
             if (e.hash == hash && key.equals(e.key)) {
                 e.value = value;
                 return;
@@ -723,7 +727,7 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Cloneable, Seria
         Set<Entry<K, V>> es = entrySet;
         return (es != null) ? es : (entrySet = new EntrySet());
     }
-
+    // 结点形式，链表的形式
     static class HashMapEntry<K, V> implements Entry<K, V> {
         final K key;
         V value;
@@ -979,6 +983,7 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Cloneable, Seria
     }
 
     /**
+      * 2 的次幂
      * Returns the smallest power of two >= its argument, with several caveats:
      * If the argument is negative but not Integer.MIN_VALUE, the method returns
      * zero. If the argument is > 2^30 or equal to Integer.MIN_VALUE, the method
